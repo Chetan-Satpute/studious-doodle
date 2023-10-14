@@ -1,10 +1,25 @@
 import {useRef} from 'react';
+
 import useAnimationFrame from '../hooks/useAnimationFrame';
+import useCanvasInteraction from '../hooks/useCanvasInteraction';
+
 import {renderCanvas} from '../lib/canvas/renderCanvas';
 
 function Canvas() {
   const canvasParentRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const {
+    transformMatrix,
+    onMouseDown,
+    onTouchStart,
+    onMouseMove,
+    onTouchMove,
+    onMouseUp,
+    onTouchEnd,
+    onWheel,
+    onDoubleClick,
+  } = useCanvasInteraction();
 
   const animationFrameCallback = () => {
     const parentElement = canvasParentRef.current;
@@ -22,6 +37,8 @@ function Canvas() {
       return;
     }
 
+    ctx.setTransform(transformMatrix);
+
     renderCanvas(ctx);
   };
 
@@ -29,7 +46,17 @@ function Canvas() {
 
   return (
     <main ref={canvasParentRef} className="flex-1 flex overflow-auto">
-      <canvas ref={canvasRef} />
+      <canvas
+        ref={canvasRef}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        onMouseMove={onMouseMove}
+        onTouchMove={onTouchMove}
+        onMouseUp={onMouseUp}
+        onTouchEnd={onTouchEnd}
+        onWheel={onWheel}
+        onDoubleClick={onDoubleClick}
+      />
     </main>
   );
 }
