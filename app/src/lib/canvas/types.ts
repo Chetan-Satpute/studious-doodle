@@ -22,3 +22,9 @@ export interface IEdge {
   endNodePosition: IPoint;
   type: EdgeType;
 }
+
+export interface ILabel {
+  x: number;
+  y: number;
+  text: string;
+}
