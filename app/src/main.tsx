@@ -8,6 +8,7 @@ import App from './App.tsx';
 
 import {muiTheme} from './theme.ts';
 
+import '@fontsource/permanent-marker';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

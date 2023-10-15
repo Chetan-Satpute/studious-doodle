@@ -1,7 +1,7 @@
 function Header() {
   return (
-    <header className="flex justify-around">
-      <h1 className="text-xl">Studious Doodle</h1>
+    <header className="flex justify-around p-3">
+      <h1 className="text-xl font-permanent-marker m-0">Studious Doodle</h1>
     </header>
   );
 }
