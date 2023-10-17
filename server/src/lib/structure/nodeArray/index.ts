@@ -20,11 +20,21 @@ class NodeArray extends Structure {
 
   rearrange(): void {
     let x = this.x;
-    for (const node of this.array) {
-      node.x = x;
-      node.y = this.y;
+    for (let i = 0; i < this.array.length; i++) {
+      this.array[i].x = x;
+      this.array[i].y = this.y;
 
       x += Node.WIDTH;
+
+      if (i === 0 && i === this.array.length - 1) {
+        this.array[i].corners = 0b1111;
+      } else if (i === 0) {
+        this.array[i].corners = 0b1001;
+      } else if (i === this.array.length - 1) {
+        this.array[i].corners = 0b0110;
+      } else {
+        this.array[i].corners = 0b0000;
+      }
     }
   }
 
@@ -33,6 +43,8 @@ class NodeArray extends Structure {
     for (const num of data) {
       nodeArray.array.push(new Node(num));
     }
+
+    nodeArray.rearrange();
 
     return nodeArray;
   }

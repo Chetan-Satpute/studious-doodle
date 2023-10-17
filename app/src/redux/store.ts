@@ -1,16 +1,22 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {Action, ThunkAction, configureStore} from '@reduxjs/toolkit';
 
+import {baseReducer} from './base/baseSlice';
 import {structureReducer} from './structure/structureSlice';
 
 const reduxStore = configureStore({
   reducer: {
+    base: baseReducer,
     structure: structureReducer,
   },
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type TReduxState = ReturnType<typeof reduxStore.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type TAppDispatch = typeof reduxStore.dispatch;
+export type TAppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  TReduxState,
+  unknown,
+  Action<string>
+>;
 
 export default reduxStore;

@@ -7,3 +7,12 @@ export const generateRandomStructure: Record<
 > = {
   array: NodeArray.generateRandom,
 };
+
+export function isStructure(structureName: string) {
+  switch (structureName) {
+    case 'array':
+      return true;
+    default:
+      return false;
+  }
+}
