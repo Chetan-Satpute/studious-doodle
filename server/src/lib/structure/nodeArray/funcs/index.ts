@@ -4,6 +4,6 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
   {
     name: 'Set Array',
     id: 'setArray',
-    args: [{type: 'number[]', value: [1, 2, 3]}],
+    args: [{label: 'values', type: 'number[]', value: [1, 2, 3]}],
   },
 ];

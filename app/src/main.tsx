@@ -11,6 +11,7 @@ import reduxStore from './redux/store.ts';
 import {muiTheme} from './theme.ts';
 
 import '@fontsource/permanent-marker';
+import '@fontsource/kalam';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

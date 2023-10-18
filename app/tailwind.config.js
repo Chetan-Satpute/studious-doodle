@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         'permanent-marker': ['Permanent Marker', 'sans-serif'],
+        kalam: ['Kalam', 'sans-serif'],
       },
       animation: {
         loader: 'loader 0.6s infinite alternate',
