@@ -1,4 +1,5 @@
 import Canvas from './components/Canvas';
+import ErrorSnackBar from './components/ErrorSnackBar';
 import Header from './components/Header';
 import SideBar from './components/SideBar';
 
@@ -10,6 +11,7 @@ function App() {
         <Canvas />
       </div>
       <SideBar />
+      <ErrorSnackBar />
     </div>
   );
 }
