@@ -3,7 +3,7 @@ import {generateRandomStructure, isStructure} from '../lib/interface/structure';
 import {functionInfo} from '../lib/interface/functions';
 import {createFrame} from '../lib/board/frame';
 
-const getStructureController: RequestHandler<{structure: string}> = (
+const getStructureController: RequestHandler<{structure: string}> = async (
   req,
   res
 ) => {

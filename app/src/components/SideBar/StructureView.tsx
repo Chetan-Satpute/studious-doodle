@@ -1,4 +1,4 @@
-import {Button} from '@mui/material';
+import {Alert, Button} from '@mui/material';
 
 import FunctionCard from '../FunctionCard';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
@@ -28,7 +28,14 @@ function StructureView() {
       <Button variant="text" className="w-full" onClick={handleClick}>
         Change Structure
       </Button>
-      <div className="flex-1 p-3">{functionCardList}</div>
+
+      <div className="flex-1 p-3 flex flex-col gap-5">
+        <Alert severity="info" variant="outlined">
+          Fields marked with ★ can take multiple comma seperated values. (ie.
+          1,2,3,4,5)
+        </Alert>
+        {functionCardList}
+      </div>
     </aside>
   );
 }

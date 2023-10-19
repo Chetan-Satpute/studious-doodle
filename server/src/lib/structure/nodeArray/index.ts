@@ -38,7 +38,9 @@ class NodeArray extends Structure {
     }
   }
 
-  static fromData(data: number[]): Structure {
+  static fromData(d: unknown): Structure {
+    const data = d as number[];
+
     const nodeArray = new NodeArray();
     for (const num of data) {
       nodeArray.array.push(new Node(num));

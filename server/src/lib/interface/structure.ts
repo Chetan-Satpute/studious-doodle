@@ -8,6 +8,13 @@ export const generateRandomStructure: Record<
   array: NodeArray.generateRandom,
 };
 
+export const createStructureFromData: Record<
+  string,
+  (d: unknown) => Structure
+> = {
+  array: NodeArray.fromData,
+};
+
 export function isStructure(structureName: string) {
   switch (structureName) {
     case 'array':

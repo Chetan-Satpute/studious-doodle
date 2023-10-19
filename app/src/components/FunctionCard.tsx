@@ -10,7 +10,7 @@ import {updateFunctionArg} from '../redux/structure/structureSlice';
 interface IProps extends IFunctionInfo {}
 
 function FunctionCard(props: IProps) {
-  const {name, id, args} = props;
+  const {name, id, args, animatable} = props;
 
   const dispatch = useAppDispatch();
 
@@ -46,23 +46,27 @@ function FunctionCard(props: IProps) {
 
       <div className="flex flex-col">{argFields}</div>
 
-      <div>
+      <div className="flex">
         <Button
-          className="w-1/2 rounded-t-none rounded-br-none"
+          className={`flex-1 rounded-t-none ${
+            animatable ? 'rounded-br-none' : ''
+          }`}
           variant="outlined"
           color="secondary"
           endIcon={<SkipNextRounded />}
         >
           Run
         </Button>
-        <Button
-          className="w-1/2 rounded-none"
-          variant="contained"
-          color="success"
-          endIcon={<PlayArrowRounded />}
-        >
-          Animate
-        </Button>
+        {animatable && (
+          <Button
+            className="w-1/2 rounded-none"
+            variant="contained"
+            color="success"
+            endIcon={<PlayArrowRounded />}
+          >
+            Animate
+          </Button>
+        )}
       </div>
     </Card>
   );
