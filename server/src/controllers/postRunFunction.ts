@@ -1,6 +1,8 @@
 import {RequestHandler} from 'express';
-import {TArg} from '../lib/interface/types';
+import {TArg, TArgValue} from '../lib/interface/types';
 import {createStructureFromData, isStructure} from '../lib/interface/structure';
+import {executeFunction} from '../lib/interface/functions';
+import Board from '../lib/board';
 
 interface IPostRunFunctionRequestBody {
   structure: 'string';
@@ -27,7 +29,26 @@ const postRunFunctionController: RequestHandler = async (req, res) => {
 
   const structure = createStructureFromData[structureName](structureData);
 
-  return res.send(body);
+  const board = new Board();
+  board.setPrimaryStructure(structure);
+
+  const processedArgs: Record<string, TArgValue> = {};
+  args.reduce((acc, obj) => {
+    acc[obj.label] = obj.value;
+    return acc;
+  }, processedArgs);
+
+  await executeFunction[structureName][functionId](
+    board,
+    processedArgs,
+    animated
+  );
+
+  const structData = board.getPrimaryStructure().toData();
+
+  return res.send({
+    structureData: structData,
+  });
 };
 
 export default postRunFunctionController;

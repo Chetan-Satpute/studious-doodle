@@ -38,6 +38,10 @@ class NodeArray extends Structure {
     }
   }
 
+  toData(): unknown {
+    return this.array.map(node => node.value);
+  }
+
   static fromData(d: unknown): Structure {
     const data = d as number[];
 

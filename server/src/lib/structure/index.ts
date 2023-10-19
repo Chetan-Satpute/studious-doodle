@@ -29,6 +29,10 @@ class Structure {
   static fromData(d: unknown): Structure {
     return new Structure();
   }
+
+  toData(): unknown {
+    return null;
+  }
 }
 
 export default Structure;

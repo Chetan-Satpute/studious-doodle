@@ -15,6 +15,17 @@ class Board {
     this.currentStep = createStep();
   }
 
+  getPrimaryStructure() {
+    return this.structures[0];
+  }
+
+  setPrimaryStructure(struct: Structure) {
+    struct.id = 0;
+    struct.board = this;
+
+    this.structures[0] = struct;
+  }
+
   add(struct: Structure) {
     struct.id = this.getId();
     struct.board = this;

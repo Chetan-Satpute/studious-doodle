@@ -1,3 +1,5 @@
+import Board from '../board';
+
 export type TArgValue = number | number[];
 export type TArgType = 'number' | 'number[]';
 
@@ -13,3 +15,9 @@ export interface IFunctionInfo {
   args: TArg[];
   animatable: boolean;
 }
+
+export type TExecutionFunction = (
+  board: Board,
+  args: Record<string, TArgValue>,
+  animate: boolean
+) => Promise<void>;
