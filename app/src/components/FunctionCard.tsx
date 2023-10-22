@@ -6,13 +6,18 @@ import SkipNextRounded from '@mui/icons-material/SkipNextRounded';
 import {IFunctionInfo} from '../lib/func';
 import {useAppDispatch} from '../hooks/useAppDispatch';
 import {updateFunctionArg} from '../redux/structure/structureSlice';
+import {runFunction} from '../redux/thunks/runFunction';
 
 interface IProps extends IFunctionInfo {}
 
 function FunctionCard(props: IProps) {
-  const {name, id, args, animatable} = props;
+  const {name, id, args} = props;
 
   const dispatch = useAppDispatch();
+
+  const handleRunFunction = (animate: boolean) => {
+    dispatch(runFunction(id, animate));
+  };
 
   const argFields = args.map(arg => {
     const handleChange: React.ChangeEventHandler<
@@ -48,25 +53,23 @@ function FunctionCard(props: IProps) {
 
       <div className="flex">
         <Button
-          className={`flex-1 rounded-t-none ${
-            animatable ? 'rounded-br-none' : ''
-          }`}
+          className="flex-1 rounded-t-none rounded-br-none"
           variant="outlined"
           color="secondary"
           endIcon={<SkipNextRounded />}
+          onClick={() => handleRunFunction(false)}
         >
           Run
         </Button>
-        {animatable && (
-          <Button
-            className="w-1/2 rounded-none"
-            variant="contained"
-            color="success"
-            endIcon={<PlayArrowRounded />}
-          >
-            Animate
-          </Button>
-        )}
+        <Button
+          className="w-1/2 rounded-none"
+          variant="contained"
+          color="success"
+          endIcon={<PlayArrowRounded />}
+          onClick={() => handleRunFunction(true)}
+        >
+          Animate
+        </Button>
       </div>
     </Card>
   );

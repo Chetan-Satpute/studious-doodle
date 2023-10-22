@@ -1,12 +1,19 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 import {StructureState} from './structureSlice';
-import {GetStructureResponseBody} from '../thunks/chooseStructure';
+import {IFunctionInfo} from '../../lib/func';
+import {IFrame} from '../../lib/frame';
 
 export function loadStructureReducer(
   state: StructureState,
-  action: PayloadAction<GetStructureResponseBody>
+  action: PayloadAction<{
+    structure: string;
+    functionList: IFunctionInfo[];
+    structureData: unknown;
+    structureFrame: IFrame;
+  }>
 ) {
-  state.functionList = action.payload.functions;
+  state.structure = action.payload.structure;
+  state.functionList = action.payload.functionList;
   state.structureData = action.payload.structureData;
   state.structureFrame = action.payload.structureFrame;
 }
@@ -43,4 +50,12 @@ export function updateFunctionArgReducer(
 
     arg.value = values.length === 0 ? [0] : values;
   }
+}
+
+export function updateStructureReducer(
+  state: StructureState,
+  action: PayloadAction<{structureData: unknown; structureFrame: IFrame}>
+) {
+  state.structureData = action.payload.structureData;
+  state.structureFrame = action.payload.structureFrame;
 }

@@ -24,7 +24,14 @@ export function chooseStructure(structure: Structure): TAppThunk {
       dispatch
     )) as GetStructureResponseBody;
 
-    dispatch(loadStructure(data));
+    dispatch(
+      loadStructure({
+        structure: structure,
+        functionList: data.functions,
+        structureData: data.structureData,
+        structureFrame: data.structureFrame,
+      })
+    );
     dispatch(changeSidebarView(SideBarView.Structure));
   };
 }

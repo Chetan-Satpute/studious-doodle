@@ -3,6 +3,7 @@ import {TArg, TArgValue} from '../lib/interface/types';
 import {createStructureFromData, isStructure} from '../lib/interface/structure';
 import {executeFunction} from '../lib/interface/functions';
 import Board from '../lib/board';
+import {createFrame} from '../lib/board/frame';
 
 interface IPostRunFunctionRequestBody {
   structure: 'string';
@@ -45,9 +46,14 @@ const postRunFunctionController: RequestHandler = async (req, res) => {
   );
 
   const structData = board.getPrimaryStructure().toData();
+  const structFrame = createFrame();
+  board.getPrimaryStructure().serialise(structFrame);
 
   return res.send({
+    structureFrame: structFrame,
     structureData: structData,
+    steps: board.steps,
+    codeMap: board.codeMap,
   });
 };
 

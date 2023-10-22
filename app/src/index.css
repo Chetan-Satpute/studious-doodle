@@ -26,3 +26,15 @@
   }
 }
 
+.code-line-base {
+  @apply m-0 pl-2 border-solid border-l-4 border-y-0 border-r-0;
+}
+
+.code-line {
+  @apply border-transparent code-line-base;
+}
+
+.highlighted-code-line {
+  @apply border-blue-500 bg-white/10 code-line-base;
+}
+

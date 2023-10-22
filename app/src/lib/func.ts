@@ -10,6 +10,5 @@ type TArg = {
 export interface IFunctionInfo {
   name: string;
   id: string;
-  animatable: boolean;
   args: TArg[];
 }

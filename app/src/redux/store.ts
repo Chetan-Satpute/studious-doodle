@@ -1,11 +1,13 @@
 import {Action, ThunkAction, configureStore} from '@reduxjs/toolkit';
 
 import {baseReducer} from './base/baseSlice';
+import {exploreReducer} from './explore/exploreSlice';
 import {structureReducer} from './structure/structureSlice';
 
 const reduxStore = configureStore({
   reducer: {
     base: baseReducer,
+    explore: exploreReducer,
     structure: structureReducer,
   },
 });

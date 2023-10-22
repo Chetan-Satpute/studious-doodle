@@ -13,7 +13,6 @@ export interface IFunctionInfo {
   name: string;
   id: string;
   args: TArg[];
-  animatable: boolean;
 }
 
 export type TExecutionFunction = (

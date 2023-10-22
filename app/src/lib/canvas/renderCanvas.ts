@@ -1,27 +1,52 @@
+import {SideBarView} from '../../components/SideBar/types';
 import reduxStore, {TReduxState} from '../../redux/store';
 import {drawEdge} from './draw/edge';
 import {drawLabel} from './draw/label';
 import {drawNode} from './draw/node';
 
-export function renderCanvas(ctx: CanvasRenderingContext2D) {
-  const reduxState = reduxStore.getState() as TReduxState;
-  const structureFrame = reduxState.structure.structureFrame;
+export const renderCanvas = (function () {
+  let prevStepIndex = 0;
+  let frameIndex = 0;
 
-  const frame = structureFrame;
+  return (ctx: CanvasRenderingContext2D) => {
+    const reduxState = reduxStore.getState() as TReduxState;
+    const structureFrame = reduxState.structure.structureFrame;
+    const sideBarView = reduxState.base.sidebarView;
 
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = '#ffffff';
-  ctx.fillStyle = '#ffffff';
+    let frame = structureFrame;
 
-  for (const node of frame.nodes) {
-    drawNode(ctx, node);
-  }
+    if (sideBarView === SideBarView.Explore) {
+      if (prevStepIndex !== reduxState.explore.currentStep) {
+        frameIndex = 0;
+        prevStepIndex = reduxState.explore.currentStep;
+      }
 
-  for (const edge of frame.edges) {
-    drawEdge(ctx, edge);
-  }
+      frame =
+        reduxState.explore.steps[reduxState.explore.currentStep].frames[
+          frameIndex
+        ];
 
-  for (const label of frame.labels) {
-    drawLabel(ctx, label);
-  }
-}
+      frameIndex = Math.min(
+        reduxState.explore.steps[reduxState.explore.currentStep].frames.length -
+          1,
+        frameIndex + 1
+      );
+    }
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#ffffff';
+    ctx.fillStyle = '#ffffff';
+
+    for (const node of frame.nodes) {
+      drawNode(ctx, node);
+    }
+
+    for (const edge of frame.edges) {
+      drawEdge(ctx, edge);
+    }
+
+    for (const label of frame.labels) {
+      drawLabel(ctx, label);
+    }
+  };
+})();
