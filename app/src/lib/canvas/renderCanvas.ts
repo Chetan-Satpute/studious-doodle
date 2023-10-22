@@ -21,16 +21,15 @@ export const renderCanvas = (function () {
         prevStepIndex = reduxState.explore.currentStep;
       }
 
-      frame =
-        reduxState.explore.steps[reduxState.explore.currentStep].frames[
-          frameIndex
-        ];
+      const currentStep =
+        reduxState.explore.steps[reduxState.explore.currentStep];
 
-      frameIndex = Math.min(
-        reduxState.explore.steps[reduxState.explore.currentStep].frames.length -
-          1,
-        frameIndex + 1
-      );
+      if (currentStep === null) {
+        return;
+      }
+
+      frame = currentStep.frames[frameIndex];
+      frameIndex = Math.min(currentStep.frames.length - 1, frameIndex + 1);
     }
 
     ctx.lineWidth = 2;

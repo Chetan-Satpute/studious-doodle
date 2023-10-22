@@ -4,6 +4,8 @@ import {createStructureFromData, isStructure} from '../lib/interface/structure';
 import {executeFunction} from '../lib/interface/functions';
 import Board from '../lib/board';
 import {createFrame} from '../lib/board/frame';
+import {IStep} from '../lib/board/step';
+import Storage from '../lib/storage';
 
 interface IPostRunFunctionRequestBody {
   structure: 'string';
@@ -49,11 +51,25 @@ const postRunFunctionController: RequestHandler = async (req, res) => {
   const structFrame = createFrame();
   board.getPrimaryStructure().serialise(structFrame);
 
+  const runID = Storage.setSteps(board.steps);
+
+  const steps: IStep[] = [];
+
+  for (let i = 0; i < 10; i++) {
+    if (i === board.steps.length) {
+      break;
+    }
+
+    steps.push(board.steps[i]);
+  }
+
   return res.send({
+    id: runID,
     structureFrame: structFrame,
     structureData: structData,
-    steps: board.steps,
+    steps: steps,
     codeMap: board.codeMap,
+    totalSteps: board.steps.length,
   });
 };
 

@@ -4,15 +4,18 @@ import {
   exploreNextStepReducer,
   explorePreviousStepReducer,
   initExploreFunctionReducer,
+  setStepsReducer,
 } from './reducer';
 
 export interface ExploreState {
+  id: string;
   codeMap: Record<string, string>;
-  steps: IStep[];
+  steps: (IStep | null)[];
   currentStep: number;
 }
 
 const initialState: ExploreState = {
+  id: '',
   codeMap: {'': ''},
   steps: [createStep()],
   currentStep: 0,
@@ -25,10 +28,15 @@ const exploreSlice = createSlice({
     initExploreFunction: initExploreFunctionReducer,
     exploreNextStep: exploreNextStepReducer,
     explorePreviousStep: explorePreviousStepReducer,
+    setSteps: setStepsReducer,
   },
 });
 
-export const {initExploreFunction, exploreNextStep, explorePreviousStep} =
-  exploreSlice.actions;
+export const {
+  initExploreFunction,
+  exploreNextStep,
+  explorePreviousStep,
+  setSteps,
+} = exploreSlice.actions;
 
 export const exploreReducer = exploreSlice.reducer;

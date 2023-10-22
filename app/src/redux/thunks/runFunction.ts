@@ -6,11 +6,14 @@ import {changeSidebarView} from '../base/baseSlice';
 import {initExploreFunction} from '../explore/exploreSlice';
 import {TAppThunk} from '../store';
 import {updateStructure} from '../structure/structureSlice';
+import {loadSteps} from './loadSteps';
 
 interface PostRunFunctionRequestBody {
+  id: string;
   structureFrame: IFrame;
   structureData: unknown;
   steps: IStep[];
+  totalSteps: number;
   codeMap: Record<string, string>;
 }
 
@@ -34,12 +37,10 @@ export function runFunction(functionId: string, animated: boolean): TAppThunk {
       animated: animated,
     };
 
-    const data = (await apiCall(
-      '/',
-      'POST',
-      body,
-      dispatch
-    )) as PostRunFunctionRequestBody;
+    const {data} = (await apiCall('/', 'POST', body, dispatch)) as {
+      status: number;
+      data: PostRunFunctionRequestBody;
+    };
 
     dispatch(
       updateStructure({
@@ -51,10 +52,14 @@ export function runFunction(functionId: string, animated: boolean): TAppThunk {
     if (animated) {
       dispatch(
         initExploreFunction({
+          id: data.id,
+          totalSteps: data.totalSteps,
           steps: data.steps,
           codeMap: data.codeMap,
         })
       );
+
+      dispatch(loadSteps(data.id, data.totalSteps));
 
       dispatch(changeSidebarView(SideBarView.Explore));
     } else {

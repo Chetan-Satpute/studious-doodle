@@ -17,12 +17,10 @@ export function chooseStructure(structure: Structure): TAppThunk {
   return async dispatch => {
     dispatch(changeSidebarView(SideBarView.Loading));
 
-    const data = (await apiCall(
-      `/${structure}`,
-      'GET',
-      null,
-      dispatch
-    )) as GetStructureResponseBody;
+    const {data} = (await apiCall(`/${structure}`, 'GET', null, dispatch)) as {
+      status: number;
+      data: GetStructureResponseBody;
+    };
 
     dispatch(
       loadStructure({

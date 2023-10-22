@@ -26,6 +26,7 @@ export function changeSideBarViewReducer(
       break;
     case SideBarView.Loading:
     default:
+      state.errorMessage = '';
       break;
   }
 }

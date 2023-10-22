@@ -9,22 +9,25 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {changeSidebarView} from '../../redux/base/baseSlice';
 import {SideBarView} from './types';
 import {exploreNextStep} from '../../redux/explore/exploreSlice';
+import {CircularProgress} from '@mui/material';
 
 function ExploreView() {
-  const code = useAppSelector(
-    state =>
-      state.explore.codeMap[
-        state.explore.steps[state.explore.currentStep].codeKey
-      ]
-  );
-  const hlLines = useAppSelector(
-    state => state.explore.steps[state.explore.currentStep].hlLines
-  );
-  const callStack = useAppSelector(
-    state => state.explore.steps[state.explore.currentStep].callStack
-  );
-
+  const currentStepIndex = useAppSelector(state => state.explore.currentStep);
+  const steps = useAppSelector(state => state.explore.steps);
+  const codeMap = useAppSelector(state => state.explore.codeMap);
   const dispatch = useAppDispatch();
+
+  const currentStep = steps[currentStepIndex];
+
+  if (currentStep === null) {
+    return null;
+  }
+
+  const nextStep = steps[currentStepIndex + 1];
+
+  const code = codeMap[currentStep.codeKey];
+  const hlLines = currentStep.hlLines;
+  const callStack = currentStep.callStack;
 
   const handlePreviousClick = () => {
     dispatch(exploreNextStep());
@@ -38,8 +41,8 @@ function ExploreView() {
     dispatch(exploreNextStep());
   };
 
-  const stackFunctions = callStack.map(func => (
-    <StackFunction code={func.code} done={func.done} />
+  const stackFunctions = callStack.map((func, index) => (
+    <StackFunction key={index} code={func.code} done={func.done} />
   ));
 
   return (
@@ -48,6 +51,7 @@ function ExploreView() {
         <Button
           className="flex flex-col md:flex-row w-1/3 gap-2 py-2"
           onClick={handlePreviousClick}
+          disabled={currentStepIndex === 0}
         >
           <UndoRounded />
           <span>Previous</span>
@@ -63,9 +67,10 @@ function ExploreView() {
         <Button
           className="flex flex-col-reverse md:flex-row w-1/3 gap-2 py-2"
           onClick={handleNextClick}
+          disabled={!nextStep}
         >
           <span>Next</span>
-          <RedoRounded />
+          {nextStep === null ? <CircularProgress size={15} /> : <RedoRounded />}
         </Button>
       </div>
 

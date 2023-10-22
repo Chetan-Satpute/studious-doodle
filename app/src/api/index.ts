@@ -53,9 +53,16 @@ export async function apiCall(
   }
 
   try {
-    const data = await response?.json();
-    return data;
+    if (!response) {
+      dispatch(setErrorMessage('Something went wrong!'));
+      return {};
+    }
+
+    const data = await response.json();
+    return {status: response.status, data: data};
   } catch {
     dispatch(setErrorMessage('Something went wrong!'));
   }
+
+  return {};
 }
