@@ -5,6 +5,7 @@ import {
 } from '../../../interface/types';
 import {setArray} from './modify/setArray';
 import {sort} from './modify/sort';
+import { binarySearch } from './search/binarySearch';
 import linearSearch from './search/linearSearch';
 import {bubbleSort} from './sort/bubbleSort';
 import insertionSort from './sort/insertionSort';
@@ -26,8 +27,14 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
     type: FunctionType.RunOnly,
   },
   {
-    name: 'LinearSearch',
+    name: 'Linear Search',
     id: 'linearSearch',
+    args: [{label: 'target', type: 'number', value: 0}],
+    type: FunctionType.AnimateOnly,
+  },
+  {
+    name: 'Binary Search',
+    id: 'binarySearch',
     args: [{label: 'target', type: 'number', value: 0}],
     type: FunctionType.AnimateOnly,
   },
@@ -67,6 +74,7 @@ export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
   setArray: setArray,
   sort: sort,
   linearSearch: linearSearch,
+  binarySearch: binarySearch,
   bubbleSort: bubbleSort,
   insertionSort: insertionSort,
   mergeSort: mergeSort,
