@@ -90,6 +90,10 @@ class Board {
     this.currentStep.callStack.push({code: callCode, done: false});
   }
 
+  popStack() {
+    this.currentStep.callStack.pop();
+  }
+
   doneLastCall() {
     const length = this.currentStep.callStack.length;
     this.currentStep.callStack[length - 1].done = true;

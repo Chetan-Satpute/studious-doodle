@@ -6,6 +6,7 @@ import {
 import {setArray} from './modify/setArray';
 import {bubbleSort} from './sort/bubbleSort';
 import insertionSort from './sort/insertionSort';
+import mergeSort from './sort/mergeSort';
 
 export const arrayFuncsInfo: IFunctionInfo[] = [
   {
@@ -26,10 +27,17 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
     args: [],
     type: FunctionType.AnimateOnly,
   },
+  {
+    name: 'Merge Sort',
+    id: 'mergeSort',
+    args: [],
+    type: FunctionType.AnimateOnly,
+  },
 ];
 
 export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
   setArray: setArray,
   bubbleSort: bubbleSort,
   insertionSort: insertionSort,
+  mergeSort: mergeSort,
 };

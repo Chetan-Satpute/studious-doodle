@@ -51,7 +51,7 @@ function Canvas() {
   useAnimationFrame(animationFrameCallback);
 
   return (
-    <main ref={canvasParentRef} className="flex-1 flex overflow-auto relative">
+    <main ref={canvasParentRef} className="flex-1 flex overflow-auto relative no-scrollbar">
       {showCanvasOverlay ? (
         <div className="h-full w-full t-0 l-0 absolute flex flex-col justify-center items-center p-3">
           <p className="text-lg lg:text-2xl text-center font-kalam">
