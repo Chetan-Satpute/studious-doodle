@@ -4,6 +4,7 @@ import {
   TExecutionFunction,
 } from '../../../interface/types';
 import {setArray} from './modify/setArray';
+import {sort} from './modify/sort';
 import {bubbleSort} from './sort/bubbleSort';
 import insertionSort from './sort/insertionSort';
 import mergeSort from './sort/mergeSort';
@@ -16,6 +17,12 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
     id: 'setArray',
     args: [{label: 'values', type: 'number[]', value: [1, 2, 3]}],
     type: FunctionType.RunAndAnimate,
+  },
+  {
+    name: 'Sort',
+    id: 'sort',
+    args: [],
+    type: FunctionType.RunOnly,
   },
   {
     name: 'Bubble Sort',
@@ -51,6 +58,7 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
 
 export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
   setArray: setArray,
+  sort: sort,
   bubbleSort: bubbleSort,
   insertionSort: insertionSort,
   mergeSort: mergeSort,
