@@ -13,6 +13,7 @@ export interface IFunctionInfo {
   name: string;
   id: string;
   args: TArg[];
+  type: FunctionType;
 }
 
 export type TExecutionFunction = (
@@ -20,3 +21,9 @@ export type TExecutionFunction = (
   args: Record<string, TArgValue>,
   animate: boolean
 ) => Promise<void>;
+
+export enum FunctionType {
+  RunOnly = 'RUN_ONLY',
+  AnimateOnly = 'ANIMATE_ONLY',
+  RunAndAnimate = 'RUN_AND_ANIMATE',
+}

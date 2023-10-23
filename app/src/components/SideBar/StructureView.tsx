@@ -20,6 +20,7 @@ function StructureView() {
       name={info.name}
       id={info.id}
       args={info.args}
+      type={info.type}
     />
   ));
 

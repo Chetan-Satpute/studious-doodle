@@ -31,6 +31,7 @@ const postRunFunctionController: RequestHandler = async (req, res) => {
   }
 
   const structure = createStructureFromData[structureName](structureData);
+  structure.moveTo(100, 100);
 
   const board = new Board();
   board.setPrimaryStructure(structure);

@@ -11,4 +11,11 @@ export interface IFunctionInfo {
   name: string;
   id: string;
   args: TArg[];
+  type: FunctionType;
+}
+
+export enum FunctionType {
+  RunOnly = 'RUN_ONLY',
+  AnimateOnly = 'ANIMATE_ONLY',
+  RunAndAnimate = 'RUN_AND_ANIMATE',
 }

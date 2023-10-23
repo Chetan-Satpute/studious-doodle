@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import SkipNextRounded from '@mui/icons-material/SkipNextRounded';
-import {IFunctionInfo} from '../lib/func';
+import {FunctionType, IFunctionInfo} from '../lib/func';
 import {useAppDispatch} from '../hooks/useAppDispatch';
 import {updateFunctionArg} from '../redux/structure/structureSlice';
 import {runFunction} from '../redux/thunks/runFunction';
@@ -11,7 +11,7 @@ import {runFunction} from '../redux/thunks/runFunction';
 interface IProps extends IFunctionInfo {}
 
 function FunctionCard(props: IProps) {
-  const {name, id, args} = props;
+  const {name, id, args, type} = props;
 
   const dispatch = useAppDispatch();
 
@@ -45,6 +45,8 @@ function FunctionCard(props: IProps) {
     );
   });
 
+  console.log(id, type);
+
   return (
     <Card elevation={5} className="flex flex-col">
       <span className="font-kalam font-normal p-3">{name}</span>
@@ -52,24 +54,32 @@ function FunctionCard(props: IProps) {
       <div className="flex flex-col">{argFields}</div>
 
       <div className="flex">
-        <Button
-          className="flex-1 rounded-t-none rounded-br-none"
-          variant="outlined"
-          color="secondary"
-          endIcon={<SkipNextRounded />}
-          onClick={() => handleRunFunction(false)}
-        >
-          Run
-        </Button>
-        <Button
-          className="w-1/2 rounded-none"
-          variant="contained"
-          color="success"
-          endIcon={<PlayArrowRounded />}
-          onClick={() => handleRunFunction(true)}
-        >
-          Animate
-        </Button>
+        {type !== FunctionType.AnimateOnly && (
+          <Button
+            className={`flex-1 rounded-t-none ${
+              type === FunctionType.RunAndAnimate ? 'rounded-br-none' : ''
+            }`}
+            variant="outlined"
+            color="secondary"
+            endIcon={<SkipNextRounded />}
+            onClick={() => handleRunFunction(false)}
+          >
+            Run
+          </Button>
+        )}
+        {type !== FunctionType.RunOnly && (
+          <Button
+            className={`flex-1 rounded-none ${
+              type === FunctionType.RunAndAnimate ? 'rounded-bl-none' : ''
+            }`}
+            variant="contained"
+            color="success"
+            endIcon={<PlayArrowRounded />}
+            onClick={() => handleRunFunction(true)}
+          >
+            Animate
+          </Button>
+        )}
       </div>
     </Card>
   );
