@@ -48,7 +48,7 @@ function FunctionCard(props: IProps) {
   console.log(id, type);
 
   return (
-    <Card elevation={5} className="flex flex-col">
+    <Card elevation={5} className="flex flex-col mb-5">
       <span className="font-kalam font-normal p-3">{name}</span>
 
       <div className="flex flex-col">{argFields}</div>
