@@ -64,10 +64,10 @@ export async function _setArrayAnimated(
   board.pushStep(codeKey, [6]);
   for (let i = 0; i < values.length; i++) {
     array.array[i].value = values[i];
-    array.array[i].color = Color.GREY;
+    array.array[i].color = Color.grey;
     board.pushStep(codeKey, [7]);
 
-    array.array[i].color = Color.TRANSPARENT;
+    array.array[i].color = Color.transparent;
     board.pushStep(codeKey, [6]);
   }
 

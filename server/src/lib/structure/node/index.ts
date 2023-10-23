@@ -11,12 +11,12 @@ class Node extends Structure {
   static WIDTH = 60;
   static HEIGHT = 30;
 
-  constructor(value: number = 0) {
+  constructor(value = 0) {
     super();
 
     this.value = value;
     this.corners = 0b1111;
-    this.color = Color.TRANSPARENT;
+    this.color = Color.transparent;
   }
 
   serialise(frame: IFrame): void {
