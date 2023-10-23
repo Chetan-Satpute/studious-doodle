@@ -61,6 +61,10 @@ class NodeArray extends Structure {
 
     return [NodeArray.fromData(arrayData), arrayData];
   }
+
+  toString() {
+    return '[' + this.array.map(node => node.value).toString() + ']';
+  }
 }
 
 export default NodeArray;

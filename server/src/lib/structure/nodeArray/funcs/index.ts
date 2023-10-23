@@ -7,6 +7,8 @@ import {setArray} from './modify/setArray';
 import {bubbleSort} from './sort/bubbleSort';
 import insertionSort from './sort/insertionSort';
 import mergeSort from './sort/mergeSort';
+import quickSort from './sort/quickSort';
+import selectionSort from './sort/selectionSort';
 
 export const arrayFuncsInfo: IFunctionInfo[] = [
   {
@@ -33,6 +35,18 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
     args: [],
     type: FunctionType.AnimateOnly,
   },
+  {
+    name: 'Quick Sort',
+    id: 'quickSort',
+    args: [],
+    type: FunctionType.AnimateOnly,
+  },
+  {
+    name: 'Selection Sort',
+    id: 'selectionSort',
+    args: [],
+    type: FunctionType.AnimateOnly,
+  },
 ];
 
 export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
@@ -40,4 +54,6 @@ export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
   bubbleSort: bubbleSort,
   insertionSort: insertionSort,
   mergeSort: mergeSort,
+  quickSort: quickSort,
+  selectionSort: selectionSort,
 };

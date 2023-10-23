@@ -47,8 +47,7 @@ export async function _setArrayAnimated(
 ) {
   board.setCode(codeKey, code);
 
-  const valuesString = `[${values.toString()}]`;
-  board.pushStack(`array = setArray(values=${valuesString})`);
+  board.pushStack(`array = setArray(values=[${values.toString()}])`);
 
   board.pushStep(codeKey, [1]);
 
