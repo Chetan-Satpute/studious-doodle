@@ -32,6 +32,8 @@ export function loadSteps(id: string, totalSteps: number): TAppThunk {
 
       if (getState().explore.id === id) {
         dispatch(setSteps({steps, startIndex: i}));
+      } else {
+        return;
       }
     }
   };

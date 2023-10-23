@@ -5,6 +5,7 @@ import {
   explorePreviousStepReducer,
   initExploreFunctionReducer,
   setStepsReducer,
+  resetExploreReducer,
 } from './reducer';
 
 export interface ExploreState {
@@ -29,6 +30,7 @@ const exploreSlice = createSlice({
     exploreNextStep: exploreNextStepReducer,
     explorePreviousStep: explorePreviousStepReducer,
     setSteps: setStepsReducer,
+    resetExplore: resetExploreReducer,
   },
 });
 
@@ -37,6 +39,7 @@ export const {
   exploreNextStep,
   explorePreviousStep,
   setSteps,
+  resetExplore,
 } = exploreSlice.actions;
 
 export const exploreReducer = exploreSlice.reducer;

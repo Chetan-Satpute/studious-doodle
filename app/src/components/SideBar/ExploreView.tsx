@@ -2,14 +2,13 @@ import RedoRounded from '@mui/icons-material/RedoRounded';
 import StopRounded from '@mui/icons-material/StopRounded';
 import UndoRounded from '@mui/icons-material/UndoRounded';
 import Button from '@mui/material/Button';
+import {CircularProgress} from '@mui/material';
 import Code from '../Code';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import StackFunction from '../StackFunction';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {changeSidebarView} from '../../redux/base/baseSlice';
-import {SideBarView} from './types';
 import {exploreNextStep} from '../../redux/explore/exploreSlice';
-import {CircularProgress} from '@mui/material';
+import {stopExplore} from '../../redux/thunks/stopExplore';
 
 function ExploreView() {
   const currentStepIndex = useAppSelector(state => state.explore.currentStep);
@@ -34,7 +33,7 @@ function ExploreView() {
   };
 
   const handleStopClick = () => {
-    dispatch(changeSidebarView(SideBarView.Structure));
+    dispatch(stopExplore());
   };
 
   const handleNextClick = () => {

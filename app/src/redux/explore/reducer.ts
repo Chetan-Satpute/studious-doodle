@@ -54,3 +54,7 @@ export function setStepsReducer(
     state.steps[startIndex + i] = steps[i];
   }
 }
+
+export function resetExploreReducer(state: ExploreState) {
+  state.id = '';
+}
