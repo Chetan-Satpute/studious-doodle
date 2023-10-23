@@ -7,7 +7,10 @@ import Code from '../Code';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import StackFunction from '../StackFunction';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {exploreNextStep} from '../../redux/explore/exploreSlice';
+import {
+  exploreNextStep,
+  explorePreviousStep,
+} from '../../redux/explore/exploreSlice';
 import {stopExplore} from '../../redux/thunks/stopExplore';
 
 function ExploreView() {
@@ -29,7 +32,7 @@ function ExploreView() {
   const callStack = currentStep.callStack;
 
   const handlePreviousClick = () => {
-    dispatch(exploreNextStep());
+    dispatch(explorePreviousStep());
   };
 
   const handleStopClick = () => {

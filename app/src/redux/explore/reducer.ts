@@ -39,8 +39,8 @@ export function exploreNextStepReducer(state: ExploreState) {
 }
 
 export function explorePreviousStepReducer(state: ExploreState) {
-  if (state.steps.length > state.currentStep + 1) {
-    state.currentStep = state.currentStep + 1;
+  if (state.currentStep !== 0) {
+    state.currentStep -= 1;
   }
 }
 

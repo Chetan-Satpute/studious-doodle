@@ -5,6 +5,7 @@ import {
 } from '../../../interface/types';
 import {setArray} from './modify/setArray';
 import {bubbleSort} from './sort/bubbleSort';
+import insertionSort from './sort/insertionSort';
 
 export const arrayFuncsInfo: IFunctionInfo[] = [
   {
@@ -19,9 +20,16 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
     args: [],
     type: FunctionType.AnimateOnly,
   },
+  {
+    name: 'Insertion Sort',
+    id: 'insertionSort',
+    args: [],
+    type: FunctionType.AnimateOnly,
+  },
 ];
 
 export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
   setArray: setArray,
   bubbleSort: bubbleSort,
+  insertionSort: insertionSort,
 };
