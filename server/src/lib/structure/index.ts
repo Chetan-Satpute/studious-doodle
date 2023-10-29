@@ -33,6 +33,10 @@ class Structure {
   toData(): unknown {
     return null;
   }
+
+  static generateRandom(): Structure {
+    return new Structure();
+  }
 }
 
 export default Structure;

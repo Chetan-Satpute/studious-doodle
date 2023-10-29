@@ -55,11 +55,11 @@ class NodeArray extends Structure {
     return nodeArray;
   }
 
-  static generateRandom(): [Structure, unknown] {
+  static generateRandom(): Structure {
     const length = randomValue(1, 10);
     const arrayData = randomNumberArray(length, 0, 100);
 
-    return [NodeArray.fromData(arrayData), arrayData];
+    return NodeArray.fromData(arrayData);
   }
 
   toString() {

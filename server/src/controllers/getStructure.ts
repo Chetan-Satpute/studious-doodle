@@ -14,7 +14,8 @@ const getStructureController: RequestHandler<{structure: string}> = async (
     return res.send({message: 'Structure Not Found!'});
   }
 
-  const [structure, structureData] = generateRandomStructure[structureName]();
+  const structure = generateRandomStructure[structureName]();
+  const structureData = structure.toData();
   const info = functionInfo[structureName];
 
   structure.moveTo(100, 100);

@@ -5,7 +5,7 @@ import {
 } from '../../../interface/types';
 import {setArray} from './modify/setArray';
 import {sort} from './modify/sort';
-import { binarySearch } from './search/binarySearch';
+import {binarySearch} from './search/binarySearch';
 import linearSearch from './search/linearSearch';
 import {bubbleSort} from './sort/bubbleSort';
 import insertionSort from './sort/insertionSort';
