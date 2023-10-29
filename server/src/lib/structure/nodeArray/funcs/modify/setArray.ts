@@ -25,9 +25,9 @@ export const setArray: TExecutionFunction = async (board, args, animate) => {
   const values = args.values as number[];
 
   if (animate) {
-    _setArrayAnimated(board, array, values);
+    await _setArrayAnimated(board, array, values);
   } else {
-    _setArray(board, array, values);
+    await _setArray(board, array, values);
   }
 };
 

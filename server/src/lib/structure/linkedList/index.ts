@@ -1,9 +1,10 @@
 import Structure from '..';
+import Board from '../../board';
 import {EdgeType, IEdge, IFrame} from '../../board/frame';
 import {randomNumberArray, randomValue} from '../../utils/random';
 import Node from '../node';
 
-class LinkedListNode extends Node {
+export class LinkedListNode extends Node {
   left: LinkedListNode | null;
   right: LinkedListNode | null;
 
@@ -18,6 +19,61 @@ class LinkedListNode extends Node {
 
     this.leftEdgePercent = 100;
     this.rightEdgePercent = 100;
+  }
+
+  serialise(frame: IFrame): void {
+    super.serialise(frame);
+
+    if (this.right !== null) {
+      const edge: IEdge = {
+        startNodePosition: {x: this.x, y: this.y},
+        endNodePosition: {x: this.right.x, y: this.right.y},
+        type: EdgeType.DOUBLE_DIRECTED,
+        percent: this.rightEdgePercent,
+      };
+
+      if (this.right.left === this) {
+        edge.percent += this.right.leftEdgePercent * 1000;
+      }
+
+      frame.edges.push(edge);
+    }
+  }
+
+  growRightEdge(board: Board) {
+    this.rightEdgePercent = 0;
+
+    for (let i = 1; i <= 100; i++) {
+      this.rightEdgePercent = i;
+      board.pushFrame();
+    }
+  }
+
+  growLeftEdge(board: Board) {
+    this.leftEdgePercent = 0;
+
+    for (let i = 1; i <= 100; i++) {
+      this.leftEdgePercent = i;
+      board.pushFrame();
+    }
+  }
+
+  shrinkRightEdge(board: Board) {
+    this.rightEdgePercent = 100;
+
+    for (let i = 100; i >= 0; i--) {
+      this.rightEdgePercent = i;
+      board.pushFrame();
+    }
+  }
+
+  shrinkLeftEdge(board: Board) {
+    this.leftEdgePercent = 100;
+
+    for (let i = 100; i >= 0; i--) {
+      this.leftEdgePercent = i;
+      board.pushFrame();
+    }
   }
 }
 
@@ -34,24 +90,14 @@ class LinkedList extends Structure {
     let node = this.head;
     while (node !== null) {
       node.serialise(frame);
-
-      if (node.right !== null) {
-        const edge: IEdge = {
-          startNodePosition: {x: node.x, y: node.y},
-          endNodePosition: {x: node.right.x, y: node.right.y},
-          type: EdgeType.DOUBLE_DIRECTED,
-          percent: node.rightEdgePercent,
-        };
-
-        if (node.right.left === node) {
-          edge.percent += node.right.leftEdgePercent * 1000;
-        }
-
-        frame.edges.push(edge);
-      }
-
       node = node.right;
     }
+
+    frame.labels.push({
+      x: this.x,
+      y: this.y - LinkedListNode.HEIGHT,
+      text: 'head',
+    });
   }
 
   rearrange(): void {
@@ -62,7 +108,7 @@ class LinkedList extends Structure {
       node.x = x;
       node.y = this.y;
 
-      x += (Node.WIDTH * 3) / 2;
+      x += Node.WIDTH * 2;
       node = node.right;
     }
   }

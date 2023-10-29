@@ -26,6 +26,24 @@ class Structure {
     this.rearrange();
   }
 
+  animatedMoveTo(board: Board, x: number, y: number) {
+    while (this.x !== x || this.y !== y) {
+      const diffX = x - this.x;
+      const diffY = y - this.y;
+
+      if (diffX !== 0) {
+        this.x += diffX / Math.abs(diffX);
+      }
+
+      if (diffY !== 0) {
+        this.y += diffY / Math.abs(diffY);
+      }
+
+      this.rearrange();
+      board.pushFrame();
+    }
+  }
+
   static fromData(d: unknown): Structure {
     return new Structure();
   }
