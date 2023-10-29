@@ -21,6 +21,7 @@ export interface IEdge {
   startNodePosition: IPoint;
   endNodePosition: IPoint;
   type: EdgeType;
+  percent: number;
 }
 
 export interface ILabel {
