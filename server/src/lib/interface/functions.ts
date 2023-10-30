@@ -1,4 +1,8 @@
 import {
+  binarySearchTreeExecutionFunction,
+  binarySearchTreeFuncsInfo,
+} from '../structure/binarySearchTree/funcs';
+import {
   linkedListExecutionFunction,
   linkedListFuncsInfo,
 } from '../structure/linkedList/funcs';
@@ -11,6 +15,7 @@ import {IFunctionInfo, TExecutionFunction} from './types';
 export const functionInfo: Record<string, IFunctionInfo[]> = {
   array: arrayFuncsInfo,
   linkedList: linkedListFuncsInfo,
+  binarySearchTree: binarySearchTreeFuncsInfo,
 };
 
 export const executeFunction: Record<
@@ -19,4 +24,5 @@ export const executeFunction: Record<
 > = {
   array: arrayExecutionFunction,
   linkedList: linkedListExecutionFunction,
+  binarySearchTree: binarySearchTreeExecutionFunction,
 };
