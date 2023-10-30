@@ -129,6 +129,10 @@ class LinkedList extends Structure {
     const data = d as number[];
 
     const list = new LinkedList();
+    if (data.length === 0) {
+      return list;
+    }
+
     list.head = new LinkedListNode(data[0]);
 
     let node = list.head;

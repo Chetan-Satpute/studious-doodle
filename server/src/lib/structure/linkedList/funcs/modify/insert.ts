@@ -8,8 +8,7 @@ const codeKey = 'LINKED_LIST_INSERT';
 const code = `
 function insert(list, position, value) {
   if (list.head === null) {
-    const node = new LinkedListNode(value);
-    list.head = node;
+    list.head = new LinkedListNode(value);
 
     return;
   }
@@ -119,20 +118,18 @@ async function _insertAnimated(
 
   board.pushStep(codeKey, [2]);
   if (list.head === null) {
-    const node = new LinkedListNode(value);
-    node.moveTo(list.x, list.y);
-
-    list.head = node;
+    list.head = new LinkedListNode(value);
     list.rearrange();
 
     board.pushStep(codeKey, [3]);
+    board.pushStep(codeKey, [5]);
 
-    board.pushStep(codeKey, [38]);
     board.doneLastCall();
+    board.pushStep(codeKey, [37]);
     return;
   }
 
-  board.pushStep(codeKey, [9]);
+  board.pushStep(codeKey, [8]);
   if (position <= 0) {
     list.animatedMoveTo(board, list.x + (LinkedListNode.WIDTH * 3) / 2, list.y);
 
@@ -140,48 +137,48 @@ async function _insertAnimated(
     node.moveTo(list.x - LinkedListNode.WIDTH * 2, list.y);
 
     board.add(node);
-    board.pushStep(codeKey, [10]);
+    board.pushStep(codeKey, [9]);
 
     node.right = list.head;
 
     node.leftEdgePercent = 0;
     node.growRightEdge(board);
-    board.pushStep(codeKey, [12]);
+    board.pushStep(codeKey, [11]);
 
     list.head.left = node;
     list.head.growLeftEdge(board);
-    board.pushStep(codeKey, [13]);
+    board.pushStep(codeKey, [12]);
 
     board.remove(node);
 
     list.head = node;
     list.moveTo(list.x - LinkedListNode.WIDTH * 2, list.y);
     list.rearrange();
-    board.pushStep(codeKey, [14]);
+    board.pushStep(codeKey, [13]);
 
-    board.pushStep(codeKey, [16]);
+    board.pushStep(codeKey, [15]);
 
     board.doneLastCall();
-    board.pushStep(codeKey, [38]);
+    board.pushStep(codeKey, [37]);
     return;
   }
 
   let ptr = list.head;
-  board.pushStep(codeKey, [19]);
   ptr.color = Color.grey;
-  board.pushStep(codeKey, [20]);
+  board.pushStep(codeKey, [18]);
+  board.pushStep(codeKey, [19]);
   for (let i = 1; i < position; i++) {
-    board.pushStep(codeKey, [21]);
+    board.pushStep(codeKey, [20]);
     if (ptr.right === null) {
-      board.pushStep(codeKey, [22]);
+      board.pushStep(codeKey, [21]);
       break;
     }
 
     ptr.color = Color.transparent;
     ptr = ptr.right;
     ptr.color = Color.grey;
-    board.pushStep(codeKey, [25]);
-    board.pushStep(codeKey, [20]);
+    board.pushStep(codeKey, [24]);
+    board.pushStep(codeKey, [19]);
   }
 
   // move all nodes from ptr to end to the right
@@ -209,21 +206,21 @@ async function _insertAnimated(
     ptr.y + LinkedListNode.HEIGHT * 2
   );
   board.add(node);
-  board.pushStep(codeKey, [28]);
+  board.pushStep(codeKey, [27]);
 
   node.right = ptr.right;
   if (ptr.right !== null) {
     node.leftEdgePercent = 0;
     node.growRightEdge(board);
   }
-  board.pushStep(codeKey, [30]);
+  board.pushStep(codeKey, [29]);
 
-  board.pushStep(codeKey, [32]);
+  board.pushStep(codeKey, [31]);
   if (ptr.right !== null) {
     ptr.right.shrinkLeftEdge(board);
     ptr.right.left = node;
     ptr.right.growLeftEdge(board);
-    board.pushStep(codeKey, [33]);
+    board.pushStep(codeKey, [32]);
 
     ptr.shrinkRightEdge(board);
   }
@@ -232,17 +229,17 @@ async function _insertAnimated(
   ptr.right = node;
   board.remove(node);
   ptr.growRightEdge(board);
-  board.pushStep(codeKey, [36]);
+  board.pushStep(codeKey, [35]);
 
   node.left = ptr;
   node.growLeftEdge(board);
-  board.pushStep(codeKey, [37]);
+  board.pushStep(codeKey, [36]);
 
   list.rearrange();
 
   ptr.color = Color.transparent;
   board.doneLastCall();
-  board.pushStep(codeKey, [38]);
+  board.pushStep(codeKey, [37]);
 }
 
 export default insert;
