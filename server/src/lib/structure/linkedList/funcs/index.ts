@@ -6,6 +6,7 @@ import {
 import insert from './modify/insert';
 import remove from './modify/remove';
 import setLinkedList from './modify/setLinkedList';
+import search from './search/search';
 
 export const linkedListFuncsInfo: IFunctionInfo[] = [
   {
@@ -41,4 +42,5 @@ export const linkedListExecutionFunction: Record<string, TExecutionFunction> = {
   setLinkedList: setLinkedList,
   insert: insert,
   remove: remove,
+  search: search,
 };
