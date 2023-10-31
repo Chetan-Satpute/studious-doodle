@@ -4,6 +4,7 @@ import {
   TExecutionFunction,
 } from '../../../interface/types';
 import setBinarySearchTree from './modify/setBinarySearchTree';
+import search from './search/search';
 
 export const binarySearchTreeFuncsInfo: IFunctionInfo[] = [
   {
@@ -40,4 +41,5 @@ export const binarySearchTreeExecutionFunction: Record<
   TExecutionFunction
 > = {
   setBinarySearchTree: setBinarySearchTree,
+  search: search,
 };
