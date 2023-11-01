@@ -216,6 +216,35 @@ class BinarySearchTree extends Structure {
 
     return tree;
   }
+
+  allNodesAfter(node: BinarySearchTreeNode | null): BinarySearchTreeNode[] {
+    if (node === null) {
+      return [];
+    }
+
+    const nodes: BinarySearchTreeNode[] = [];
+    let flag = false;
+
+    const _recurse = (_node: BinarySearchTreeNode | null) => {
+      if (_node === null) {
+        return;
+      }
+
+      _recurse(_node.left);
+
+      if (flag) {
+        nodes.push(_node);
+      } else if (_node === node) {
+        flag = true;
+      }
+
+      _recurse(_node.right);
+    };
+
+    _recurse(this.root);
+
+    return nodes;
+  }
 }
 
 export default BinarySearchTree;

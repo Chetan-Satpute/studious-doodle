@@ -27,29 +27,31 @@ export function drawEdge(ctx: CanvasRenderingContext2D, edge: IEdge) {
     endPoint.x = startPoint.x + (Math.cos(angle) * length * percent) / 100;
     endPoint.y = startPoint.y + (Math.sin(angle) * length * percent) / 100;
 
-    // line segment
-    ctx.beginPath();
-    ctx.moveTo(startPoint.x, startPoint.y);
-    ctx.lineTo(endPoint.x, endPoint.y);
-    ctx.closePath();
+    if (getLength(startPoint, endPoint) >= HEAD_LENGTH) {
+      // line segment
+      ctx.beginPath();
+      ctx.moveTo(startPoint.x, startPoint.y);
+      ctx.lineTo(endPoint.x, endPoint.y);
+      ctx.closePath();
 
-    ctx.stroke();
+      ctx.stroke();
 
-    // head
-    ctx.beginPath();
-    ctx.moveTo(endPoint.x, endPoint.y);
-    ctx.lineTo(
-      endPoint.x - HEAD_LENGTH * Math.cos(angle - Math.PI / 7),
-      endPoint.y - HEAD_LENGTH * Math.sin(angle - Math.PI / 7)
-    );
-    ctx.lineTo(
-      endPoint.x - HEAD_LENGTH * Math.cos(angle + Math.PI / 7),
-      endPoint.y - HEAD_LENGTH * Math.sin(angle + Math.PI / 7)
-    );
-    ctx.lineTo(endPoint.x, endPoint.y);
-    ctx.closePath();
+      // head
+      ctx.beginPath();
+      ctx.moveTo(endPoint.x, endPoint.y);
+      ctx.lineTo(
+        endPoint.x - HEAD_LENGTH * Math.cos(angle - Math.PI / 7),
+        endPoint.y - HEAD_LENGTH * Math.sin(angle - Math.PI / 7)
+      );
+      ctx.lineTo(
+        endPoint.x - HEAD_LENGTH * Math.cos(angle + Math.PI / 7),
+        endPoint.y - HEAD_LENGTH * Math.sin(angle + Math.PI / 7)
+      );
+      ctx.lineTo(endPoint.x, endPoint.y);
+      ctx.closePath();
 
-    ctx.fill();
+      ctx.fill();
+    }
   } else if (type === EdgeType.UNDIRECTED) {
     const startPoint = getEndPoint(startCenter, angle);
     const endPoint = getEndPoint(endCenter, (angle + Math.PI) % (Math.PI * 2));

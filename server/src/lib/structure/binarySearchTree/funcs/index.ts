@@ -3,6 +3,7 @@ import {
   IFunctionInfo,
   TExecutionFunction,
 } from '../../../interface/types';
+import insert from './modify/insert';
 import setBinarySearchTree from './modify/setBinarySearchTree';
 import search from './search/search';
 
@@ -16,10 +17,7 @@ export const binarySearchTreeFuncsInfo: IFunctionInfo[] = [
   {
     name: 'Insert',
     id: 'insert',
-    args: [
-      {label: 'position', type: 'number', value: 0},
-      {label: 'value', type: 'number', value: 0},
-    ],
+    args: [{label: 'value', type: 'number', value: 0}],
     type: FunctionType.RunAndAnimate,
   },
   {
@@ -42,4 +40,5 @@ export const binarySearchTreeExecutionFunction: Record<
 > = {
   setBinarySearchTree: setBinarySearchTree,
   search: search,
+  insert: insert,
 };

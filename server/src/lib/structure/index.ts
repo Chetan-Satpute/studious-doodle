@@ -44,6 +44,33 @@ class Structure {
     }
   }
 
+  static animatedMoveAll(
+    board: Board,
+    x: number,
+    y: number,
+    structs: Structure[]
+  ) {
+    let ticks = Math.max(Math.abs(x), Math.abs(y));
+
+    while (ticks--) {
+      for (let i = 0; i < structs.length; i++) {
+        if (x < 0) structs[i].x--;
+        if (x > 0) structs[i].x++;
+
+        if (y < 0) structs[i].y--;
+        if (y > 0) structs[i].y++;
+      }
+
+      if (x < 0) x++;
+      if (x > 0) x--;
+
+      if (y < 0) y++;
+      if (y > 0) y--;
+
+      board.pushFrame();
+    }
+  }
+
   static fromData(d: unknown): Structure {
     return new Structure();
   }
