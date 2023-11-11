@@ -71,6 +71,31 @@ class Structure {
     }
   }
 
+  static animatedMoveAllV2(
+    board: Board,
+    movements: {struct: Structure; x: number; y: number}[]
+  ) {
+    let tick = true;
+
+    while (tick) {
+      tick = false;
+
+      for (let i = 0; i < movements.length; i++) {
+        if (movements[i].x < 0) movements[i].struct.x--, movements[i].x++;
+        if (movements[i].x > 0) movements[i].struct.x++, movements[i].x--;
+
+        if (movements[i].y < 0) movements[i].struct.y--, movements[i].y++;
+        if (movements[i].y > 0) movements[i].struct.y++, movements[i].y--;
+
+        if (movements[i].x || movements[i].y) {
+          tick = true;
+        }
+      }
+
+      board.pushFrame();
+    }
+  }
+
   static fromData(d: unknown): Structure {
     return new Structure();
   }

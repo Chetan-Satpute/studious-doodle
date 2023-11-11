@@ -137,6 +137,38 @@ class BinarySearchTree extends Structure {
     _rearrange(this.root, 0);
   }
 
+  animatedRearrange(board: Board) {
+    const data = this.toData();
+    const clone = BinarySearchTree.fromData(data);
+    clone.rearrange();
+
+    const movements: {struct: BinarySearchTreeNode; x: number; y: number}[] =
+      [];
+
+    const _recurse = (
+      nodeA: BinarySearchTreeNode | null,
+      nodeB: BinarySearchTreeNode | null
+    ) => {
+      if (nodeA === null || nodeB === null) {
+        return;
+      }
+
+      _recurse(nodeA.left, nodeB.left);
+
+      movements.push({
+        struct: nodeA,
+        x: nodeB.x - nodeA.x,
+        y: nodeB.y - nodeA.y,
+      });
+
+      _recurse(nodeA.right, nodeB.right);
+    };
+
+    _recurse(this.root, clone.root);
+
+    Structure.animatedMoveAllV2(board, movements);
+  }
+
   toData(): unknown {
     const _recurse = (
       node: BinarySearchTreeNode | null
