@@ -3,6 +3,7 @@ import {
   IFunctionInfo,
   TExecutionFunction,
 } from '../../../interface/types';
+import generateRandom from './modify/generateRandom';
 import {setArray} from './modify/setArray';
 import {sort} from './modify/sort';
 import {binarySearch} from './search/binarySearch';
@@ -14,6 +15,12 @@ import quickSort from './sort/quickSort';
 import selectionSort from './sort/selectionSort';
 
 export const arrayFuncsInfo: IFunctionInfo[] = [
+  {
+    name: 'Generate Random Array',
+    id: 'generateRandom',
+    args: [],
+    type: FunctionType.RunOnly,
+  },
   {
     name: 'Set Array',
     id: 'setArray',
@@ -71,6 +78,7 @@ export const arrayFuncsInfo: IFunctionInfo[] = [
 ];
 
 export const arrayExecutionFunction: Record<string, TExecutionFunction> = {
+  generateRandom: generateRandom,
   setArray: setArray,
   sort: sort,
   linearSearch: linearSearch,

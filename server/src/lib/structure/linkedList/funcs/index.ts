@@ -3,12 +3,19 @@ import {
   IFunctionInfo,
   TExecutionFunction,
 } from '../../../interface/types';
+import generateRandom from './modify/generateRandom';
 import insert from './modify/insert';
 import remove from './modify/remove';
 import setLinkedList from './modify/setLinkedList';
 import search from './search/search';
 
 export const linkedListFuncsInfo: IFunctionInfo[] = [
+  {
+    name: 'Generate Random Linked List',
+    id: 'generateRandom',
+    args: [],
+    type: FunctionType.RunOnly,
+  },
   {
     name: 'Set Linked List',
     id: 'setLinkedList',
@@ -39,6 +46,7 @@ export const linkedListFuncsInfo: IFunctionInfo[] = [
 ];
 
 export const linkedListExecutionFunction: Record<string, TExecutionFunction> = {
+  generateRandom: generateRandom,
   setLinkedList: setLinkedList,
   insert: insert,
   remove: remove,
