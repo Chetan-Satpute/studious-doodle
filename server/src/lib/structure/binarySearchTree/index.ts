@@ -126,8 +126,8 @@ class BinarySearchTree extends Structure {
       _rearrange(node.left, height + 1);
 
       node.moveTo(
-        index * BinarySearchTreeNode.WIDTH,
-        height * BinarySearchTreeNode.HEIGHT * 2
+        this.x + index * BinarySearchTreeNode.WIDTH,
+        this.y + height * BinarySearchTreeNode.HEIGHT * 2
       );
       index += 1;
 
@@ -140,6 +140,7 @@ class BinarySearchTree extends Structure {
   animatedRearrange(board: Board) {
     const data = this.toData();
     const clone = BinarySearchTree.fromData(data);
+    clone.moveTo(this.x, this.y);
     clone.rearrange();
 
     const movements: {struct: BinarySearchTreeNode; x: number; y: number}[] =

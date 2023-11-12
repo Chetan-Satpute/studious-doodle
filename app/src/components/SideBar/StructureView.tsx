@@ -26,9 +26,11 @@ function StructureView() {
 
   return (
     <aside className="h-3/5 w-full lg:h-full lg:w-1/3 flex flex-col-reverse lg:flex-col">
-      <Button variant="text" className="w-full" onClick={handleClick}>
-        Change Structure
-      </Button>
+      <div className="px-3 py-3">
+        <Button variant="contained" className="w-full" onClick={handleClick}>
+          Change Structure
+        </Button>
+      </div>
 
       <div className="flex-1 p-3 overflow-auto no-scrollbar">
         <Alert className="mb-5" severity="info" variant="outlined">

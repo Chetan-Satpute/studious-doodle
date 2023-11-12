@@ -1,5 +1,4 @@
 import BinarySearchTree, {BinarySearchTreeNode} from '../..';
-import Structure from '../../..';
 import Board from '../../../../board';
 import {Color} from '../../../../color';
 import {TExecutionFunction} from '../../../../interface/types';
@@ -104,7 +103,7 @@ function getSuccessor(node) {
     return null;
   }
 
-  auto ptr = node.right;
+  let ptr = node.right;
 
   while (ptr.left !== null) {
     ptr = ptr.left;
@@ -127,7 +126,93 @@ const remove: TExecutionFunction = async (board, args, animate) => {
   }
 };
 
-async function _remove(board: Board, tree: BinarySearchTree, value: number) {}
+async function _remove(board: Board, tree: BinarySearchTree, value: number) {
+  if (tree.root === null) {
+    return;
+  }
+
+  if (tree.root.value === value) {
+    if (tree.root.right === null) {
+      tree.root = tree.root.left;
+    } else {
+      let parent = tree.root;
+      let node = tree.root.right;
+
+      while (node.left !== null) {
+        parent = node;
+        node = node.left;
+      }
+
+      if (parent !== tree.root) {
+        parent.left = node.right;
+      }
+
+      node.left = tree.root.left;
+
+      if (parent !== tree.root) {
+        node.right = tree.root.right;
+      }
+
+      tree.root = node;
+    }
+
+    tree.rearrange();
+    return;
+  }
+
+  let parent: BinarySearchTreeNode | null = tree.root;
+  let node: BinarySearchTreeNode | null = tree.root;
+
+  while (node !== null) {
+    if (node.value === value) {
+      break;
+    } else if (node.value < value) {
+      parent = node;
+      node = node.right;
+    } else if (node.value > value) {
+      parent = node;
+      node = node.left;
+    }
+  }
+
+  if (node === null) {
+    return;
+  }
+
+  if (node.right === null) {
+    if (parent.value < value) {
+      parent.right = node.left;
+    } else if (parent.value > value) {
+      parent.left = node.left;
+    }
+  } else {
+    let replaceNodeParent: BinarySearchTreeNode | null = node;
+    let replaceNode: BinarySearchTreeNode | null = node.right;
+
+    while (replaceNode.left !== null) {
+      replaceNodeParent = replaceNode;
+      replaceNode = replaceNode.left;
+    }
+
+    if (replaceNodeParent !== node) {
+      replaceNodeParent.left = replaceNode.right;
+    }
+
+    replaceNode.left = node.left;
+
+    if (replaceNodeParent !== node) {
+      replaceNode.right = node.right;
+    }
+
+    if (parent.value < value) {
+      parent.right = replaceNode;
+    } else if (parent.value > value) {
+      parent.left = replaceNode;
+    }
+  }
+
+  tree.rearrange();
+}
 
 async function _removeAnimated(
   board: Board,
@@ -172,7 +257,7 @@ async function _removeAnimated(
       node.animatedMoveTo(
         board,
         node.x,
-        node.y + BinarySearchTreeNode.HEIGHT * 4
+        tree.y - BinarySearchTreeNode.HEIGHT * 2
       );
       if (parent.left === node) {
         parent.shrinkLeftEdge(board);
@@ -205,7 +290,7 @@ async function _removeAnimated(
       node.animatedMoveTo(
         board,
         node.x,
-        node.y + BinarySearchTreeNode.HEIGHT * 4
+        tree.y - BinarySearchTreeNode.HEIGHT * 2
       );
       if (parent.left === node) {
         parent.shrinkLeftEdge(board);
@@ -245,7 +330,7 @@ async function _removeAnimated(
       node.animatedMoveTo(
         board,
         node.x,
-        node.y + BinarySearchTreeNode.HEIGHT * 4
+        tree.y - BinarySearchTreeNode.HEIGHT * 2
       );
       if (parent.left === node) {
         parent.shrinkLeftEdge(board);
@@ -288,12 +373,9 @@ async function _removeAnimated(
   board.popStack();
   node.color = Color.red;
   successor.color = Color.slateBlue;
-  node.animatedMoveTo(board, node.x, node.y + BinarySearchTreeNode.HEIGHT * 4);
-  successor.animatedMoveTo(
-    board,
-    node.x,
-    node.y - BinarySearchTreeNode.HEIGHT * 4
-  );
+  const nodeY = node.y;
+  node.animatedMoveTo(board, node.x, tree.y - BinarySearchTreeNode.HEIGHT * 2);
+  successor.animatedMoveTo(board, node.x, nodeY);
   board.pushStep(codeKey, [51]);
 
   if (successor.left) successor.shrinkLeftEdge(board);
@@ -308,7 +390,7 @@ async function _removeAnimated(
 
   board.pushStep(codeKey, [56]);
   if (parent === null) {
-    tree.root = node;
+    tree.root = successor;
     board.pushStep(codeKey, [57]);
   } else {
     if (parent.left === node) {
