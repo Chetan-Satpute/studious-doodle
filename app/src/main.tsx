@@ -13,16 +13,19 @@ import {muiTheme} from './theme.ts';
 import '@fontsource/permanent-marker';
 import '@fontsource/kalam';
 import './index.css';
+import ErrorBoundary from './components/ErrorBoundry.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={muiTheme}>
-        <Provider store={reduxStore}>
-          <CssBaseline />
-          <App />
-        </Provider>
-      </ThemeProvider>
-    </StyledEngineProvider>
-  </React.StrictMode>
+  <ErrorBoundary>
+    <React.StrictMode>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <Provider store={reduxStore}>
+            <CssBaseline />
+            <App />
+          </Provider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </React.StrictMode>
+  </ErrorBoundary>
 );
