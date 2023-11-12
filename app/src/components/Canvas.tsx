@@ -1,11 +1,10 @@
 import {useRef} from 'react';
 import Alert from '@mui/material/Alert';
-
 import useAnimationFrame from '../hooks/useAnimationFrame';
 import useCanvasInteraction from '../hooks/useCanvasInteraction';
 import {useAppSelector} from '../hooks/useAppSelector';
-
 import {renderCanvas} from '../lib/canvas/renderCanvas';
+import FullScreenButton from './FullScreenButton';
 
 function Canvas() {
   const showCanvasOverlay = useAppSelector(
@@ -51,7 +50,10 @@ function Canvas() {
   useAnimationFrame(animationFrameCallback);
 
   return (
-    <main ref={canvasParentRef} className="flex-1 flex overflow-auto relative no-scrollbar">
+    <main
+      ref={canvasParentRef}
+      className="flex-1 flex overflow-auto relative no-scrollbar"
+    >
       {showCanvasOverlay ? (
         <div className="h-full w-full t-0 l-0 absolute flex flex-col justify-center items-center p-3">
           <p className="text-lg lg:text-2xl text-center font-kalam">
@@ -61,6 +63,10 @@ function Canvas() {
           <Alert variant="outlined" severity="info">
             We recommend using full screen mode for the best user experience.
           </Alert>
+
+          <div className="my-3">
+            <FullScreenButton />
+          </div>
         </div>
       ) : (
         <canvas
