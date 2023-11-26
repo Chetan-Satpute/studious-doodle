@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import path from 'path';
 import {createStream} from 'rotating-file-stream';
 
-import {NODE_ENV} from '../constant/env';
+import {NODE_ENV, SAVE_LOGS} from '../constant/env';
 
 const productionFormatString = `\
 :remote-addr - :remote-user [:date[clf]] \
@@ -14,12 +14,6 @@ const productionFormatString = `\
 
 export function logger() {
   if (NODE_ENV === 'production') {
-    const fileLogStream = createStream('file.log', {
-      size: '100M',
-      interval: '1d',
-      path: path.join(__dirname, 'log'),
-    });
-
     morgan.token(
       'req-query',
       (req: Request) => `\nQuery ${JSON.stringify(req.query)}`
@@ -33,7 +27,17 @@ export function logger() {
       (req: Request) => `\nBody ${JSON.stringify(req.body)}`
     );
 
-    return morgan(productionFormatString, {stream: fileLogStream});
+    if (SAVE_LOGS) {
+      const fileLogStream = createStream('file.log', {
+        size: '100M',
+        interval: '1d',
+        path: path.join(__dirname, 'log'),
+      });
+
+      return morgan(productionFormatString, {stream: fileLogStream});
+    } else {
+      return morgan(productionFormatString);
+    }
   } else {
     return morgan('dev');
   }

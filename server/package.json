@@ -1,6 +1,7 @@
 {
   "name": "server",
   "scripts": {
+    "start": "node build/index.js",
     "dev": "bun --hot src/main.ts",
     "build": "esbuild src/main.ts --platform=node --bundle --minify --outfile=build/index.js",
     "lint": "gts lint",
@@ -22,6 +23,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
     "rotating-file-stream": "^3.1.1"
