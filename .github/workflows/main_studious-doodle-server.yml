@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - studious-doodle-server
 on:
   push:
     branches:
-      - main
+      - deploy-server
   workflow_dispatch:
 
 jobs:
