@@ -1,7 +1,9 @@
 import {useLayoutEffect, useState} from 'react';
 
 export function useFullScreen() {
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(
+    document.fullscreenElement !== null
+  );
 
   useLayoutEffect(() => {
     const handleWindowResize = () => {
